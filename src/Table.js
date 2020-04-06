@@ -1,37 +1,49 @@
-import React from "react";
+import React, { Component } from "react";
 import { Table } from "reactstrap";
 
-const Example = props => {
+const TableHeader = () => {
   return (
-    <div clssName="container">
-      <Table className="col-6" aligne="centre">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>Job</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td>Charlie</td>
-            <td>Janitor</td>
-          </tr>
-          <tr>
-            <td>Mac</td>
-            <td>Bouncer</td>
-          </tr>
-          <tr>
-            <td>Dee</td>
-            <td>Aspiring Actress</td>
-          </tr>
-          <tr>
-            <td>Dennis</td>
-            <td>Bartender</td>
-          </tr>
-        </tbody>
-      </Table>
-    </div>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Job</th>
+      </tr>
+    </thead>
   );
 };
 
-export default Example;
+const TableBody = (props) => {
+  const rows = props.characterData.map((row, index) => {
+    return (
+      <tr key={index}>
+        <td>{row.name}</td>
+        <td>{row.job}</td>
+        <td>
+          <button
+            className="btn btn-primary btn-sm"
+            onClick={() => props.removeCharacter(index)}
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    );
+  });
+
+  return <tbody>{rows}</tbody>;
+};
+
+const Table_final = (props) => {
+  const { characterData, removeCharacter } = props;
+  return (
+    <Table className="col-12" aligne="centre">
+      <TableHeader />
+      <TableBody
+        characterData={characterData}
+        removeCharacter={removeCharacter}
+      />
+    </Table>
+  );
+};
+
+export default Table_final;
